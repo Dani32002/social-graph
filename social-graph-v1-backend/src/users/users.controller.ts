@@ -27,6 +27,15 @@ export class UsersController {
         return this.authService.login(req);
     }
 
+    @Get('validate-token')
+    @UseGuards(RolesGuard)
+    @UseGuards(JwtAuthGuard)
+    @Roles(UserRole.USER, UserRole.ADMIN)
+    async validToken(@Req() req: any) {
+        console.log('UsersController: Validating token');
+        return { valid: true };
+    }
+
     @Get()
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)

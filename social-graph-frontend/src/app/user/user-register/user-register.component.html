@@ -1,0 +1,52 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Create account</h5>
+
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input formControlName="name" class="form-control" />
+            <div *ngIf="f['name'].touched && f['name'].invalid" class="invalid-feedback d-block">
+              Name is required
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input formControlName="email" type="email" class="form-control" />
+            <div *ngIf="f['email'].touched && f['email'].invalid" class="invalid-feedback d-block">
+              Valid email required
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input formControlName="password" type="password" class="form-control" />
+            <div *ngIf="f['password'].touched && f['password'].invalid" class="invalid-feedback d-block">
+              Password is required (min 6)
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Bio</label>
+            <textarea formControlName="bio" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Avatar URL</label>
+            <input formControlName="avatarUrl" class="form-control" />
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+          <button class="btn btn-primary w-100" type="submit" [disabled]="registerForm.invalid || submitting">
+            <span *ngIf="!submitting">Register</span>
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

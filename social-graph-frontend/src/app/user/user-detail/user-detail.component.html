@@ -1,0 +1,60 @@
+<div class="container py-3" *ngIf="_user; else noUser">
+  <div class="mb-2">
+    <a routerLink="/users" class="btn btn-sm btn-link">&larr; Back to list</a>
+  </div>
+
+  <div class="card">
+    <div class="card-body d-flex gap-3 align-items-start">
+      <img
+        [src]="_user?.avatarUrl || 'assets/default-avatar.png'"
+        class="rounded-circle border"
+        style="width:96px;height:96px;object-fit:cover"
+        [alt]="_user?.name || 'avatar'"
+      />
+
+      <div class="flex-grow-1">
+        <h4 class="mb-1">
+          {{ _user?.name || '—' }}
+          <small class="text-muted">({{ _user?.role || 'user' }})</small>
+        </h4>
+
+        <p class="mb-1"><strong>ID:</strong> {{ _user?.id }}</p>
+
+        <p class="mb-1">
+          <strong>Email:</strong>
+          <a *ngIf="_user?.email" [href]="'mailto:' + _user.email">{{ _user.email }}</a>
+          <span *ngIf="!_user?.email">—</span>
+        </p>
+
+        <p class="mb-2"><strong>Bio:</strong> <span>{{ _user?.bio || '—' }}</span></p>
+
+        <div *ngIf="_user?.friends?.length">
+          <strong>Friends ({{ _user?.friends?.length }}):</strong>
+          <ul class="list-inline mt-2 mb-0">
+            <li class="list-inline-item me-3" *ngFor="let f of _user?.friends">
+                <img
+                  [src]="f.avatarUrl || 'assets/default-avatar.png'"
+                  class="rounded-circle border me-2"
+                  style="width:36px;height:36px;object-fit:cover"
+                  [alt]="f.name || f.id"
+                />
+                <span class="small text-truncate" style="max-width:120px;">{{ f.name || f.id }}</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="ms-auto d-none d-md-block">
+        <button *ngIf="!isFriend() && notMe()" class="btn btn-sm btn-outline-secondary" (click)="addFriend(_user.id)">Add Friend</button>
+        <button *ngIf="isFriend() && notMe()" class="btn btn-sm btn-outline-danger mt-2" (click)="removeFriend(_user.id)">Remove Friend</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noUser>
+  <div class="container py-4">
+    <div class="alert alert-warning mb-0">No user selected.</div>
+  </div>
+</ng-template>

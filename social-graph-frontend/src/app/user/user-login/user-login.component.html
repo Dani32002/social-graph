@@ -1,0 +1,37 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Sign in</h5>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input id="email" type="email" class="form-control" formControlName="email" [class.is-invalid]="f.email.touched && f.email.invalid" />
+              <div *ngIf="f.email.touched && f.email.invalid" class="invalid-feedback">
+                Valid email required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input id="password" type="password" class="form-control" formControlName="password" [class.is-invalid]="f.password.touched && f.password.invalid" />
+              <div *ngIf="f.password.touched && f.password.invalid" class="invalid-feedback">
+                Password required
+              </div>
+            </div>
+
+            <div *ngIf="error" class="alert alert-danger py-2">{{ error }}</div>
+
+            <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid || submitting">
+              <span *ngIf="!submitting">Sign in</span>
+              <span *ngIf="submitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>
+          </form>
+          <div style="display: flex; justify-content: center; margin-top: 1rem; width: 100%;"><span style="margin-right: 3px;">Don't have an account?</span> <a routerLink="/register">Register</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
