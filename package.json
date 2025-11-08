@@ -1,0 +1,16 @@
+{
+  "name": "social-graph-monorepo",
+  "workspaces": [
+    "social-graph-frontend",
+    "social-graph-v1-backend"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  },
+  "scripts": {
+    "install:all": "npm install",
+    "start:backend": "npm --prefix social-graph-v1-backend run start:dev",
+    "start:frontend": "npm --prefix social-graph-frontend run start",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  }
+}
