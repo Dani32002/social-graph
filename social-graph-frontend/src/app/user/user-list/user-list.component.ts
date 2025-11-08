@@ -32,6 +32,17 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  isYou(user: User): boolean {
+    const ownId = localStorage.getItem('own_id')!;
+    return user.id === ownId;
+  }
+
+  logout(): void {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('own_id');
+    this.router.navigate(['/']);
+  }
+
   onSelected(user: User): void {
     this.selected = true;
     this.selectedUser = user;
